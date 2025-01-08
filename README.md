@@ -9,8 +9,3 @@ wit-bindgen-go: https://github.com/bytecodealliance/wasm-tools-go/tree/main (clo
 1. wash build  
 2. wash up (in other terminal)  
 3. wash app deploy wadm.yaml  
-4. nats req "wasmcloud.echo" "Hello" --server=nats//localhost:4222  
-
-## use this repo as a template for your component
-
-`wash new component --git Mattilsynet/wasmcloud-playground-solve --subfolder echo-sdk-go my-component`
