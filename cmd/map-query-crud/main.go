@@ -4,8 +4,8 @@ import (
 	"log"
 	"time"
 
-	metav1 "github.com/Mattilsynet/map-types/gen/go/meta/v1"
-	"github.com/Mattilsynet/map-types/gen/go/query/v1"
+	metav1 "github.com/Mattilsynet/mapis/gen/go/meta/v1"
+	"github.com/Mattilsynet/mapis/gen/go/query/v1"
 	"github.com/nats-io/nats.go"
 )
 

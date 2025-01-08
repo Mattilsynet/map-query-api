@@ -6,7 +6,7 @@ import (
 
 	"github.com/Mattilsynet/map-query-api/pkg/nats"
 	"github.com/Mattilsynet/map-query-api/pkg/subject"
-	"github.com/Mattilsynet/map-types/gen/go/query/v1"
+	"github.com/Mattilsynet/mapis/gen/go/query/v1"
 	"github.com/google/uuid"
 	"go.wasmcloud.dev/component/log/wasilog"
 )

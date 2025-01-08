@@ -5,7 +5,7 @@ go 1.23.2
 require go.wasmcloud.dev/component v0.0.5
 
 require (
-	github.com/Mattilsynet/map-types v0.1.9
+	github.com/Mattilsynet/mapis v0.0.1
 	github.com/bytecodealliance/wasm-tools-go v0.3.1
 	github.com/google/uuid v1.6.0
 	github.com/nats-io/nats.go v1.37.0
@@ -13,7 +13,7 @@ require (
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.35.2-20240920164238-5a7b106cbb87.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.1-20241127180247-a33202765966.1 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/docker/libtrust v0.0.0-20160708172513-aabc10ec26b7 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
@@ -33,5 +33,5 @@ require (
 	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/sys v0.26.0 // indirect
 	golang.org/x/text v0.18.0 // indirect
-	google.golang.org/protobuf v1.35.2 // indirect
+	google.golang.org/protobuf v1.36.2 // indirect
 )

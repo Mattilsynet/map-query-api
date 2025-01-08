@@ -1,6 +1,6 @@
 package subject
 
-import "github.com/Mattilsynet/map-types/gen/go/query/v1"
+import "github.com/Mattilsynet/mapis/gen/go/query/v1"
 
 type QuerySubject struct {
 	Kind    string
