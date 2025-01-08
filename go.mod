@@ -12,6 +12,8 @@ require (
 
 )
 
+replace golang.org/x/crypto => golang.org/x/crypto v0.31.0
+
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.1-20241127180247-a33202765966.1 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
