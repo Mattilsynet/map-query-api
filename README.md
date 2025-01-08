@@ -1,3 +1,6 @@
+# map-query-api
+Query part of the CQRS pattern, with its counterpart map-command-api, its responsibility is to aggregate queries down to a interestbased workqueue on jetstream. 
+
 ## requirements
 
 tinygo v0.33  
