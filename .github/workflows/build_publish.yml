@@ -1,0 +1,45 @@
+name: build_push
+
+on:
+  push:
+    tags:
+      - 'v*'
+      
+jobs:
+  wash-build:
+    runs-on: ubuntu-latest
+    env:
+      built_file_name: map-query-api_s.wasm
+    permissions:
+     contents: 'write'
+    steps:
+     - name: checkout
+       uses: actions/checkout@v4
+     - name: install go
+       uses: actions/setup-go@v2
+     - name: install tinygo
+       uses: acifani/setup-tinygo@v2
+       with:
+         install-binaryen: 'false'
+     - name: install wash-cli, and dependencies
+       uses: taiki-e/cache-cargo-install-action@v2
+       with:
+         tool: wash-cli, wit-bindgen-cli, wasm-tools
+          
+     - name: validate-yaml
+       shell: bash
+       run: |
+          [[ ! -f wadm.yaml]] || wash app validate wadm.yaml
+          [[ ! -f local.wadm.yaml ]] || wash app validate local.wadm.yaml
+     - name: publish package to github repository 
+       shell: bash
+       run: |
+          wash push ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}:${{ github.ref_name }} ${{ env.built_file_name }} --annotation org.opencontainers.image.source=${{github.server_url}}/${{ github.repository }}
+       working-directory: ./build
+
+
+#TODO: run wash up, wash apply and check output for success messages
+        #
+        #
+      
+            
