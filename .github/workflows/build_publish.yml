@@ -21,10 +21,14 @@ jobs:
        uses: acifani/setup-tinygo@v2
        with:
          install-binaryen: 'false'
-     - name: install wash-cli, and dependencies
+     - name: install wash tools
+       uses: taiki-e/install-action@v2
+       with:
+         tool: wit-bindgen-cli, wasm-tools
+     - name: install wash-cli cached
        uses: taiki-e/cache-cargo-install-action@v2
        with:
-         tool: wash-cli, wit-bindgen-cli, wasm-tools
+         tool: wash-cli
           
      - name: validate-yaml
        shell: bash
