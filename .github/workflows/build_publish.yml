@@ -51,6 +51,11 @@ jobs:
        shell: bash
        run: |
          ./wash build
+     - name: set publish env
+       shell: bash
+       run: |
+          export WASH_REG_USER: ${{ github.repository_owner }}
+          export WASH_REG_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
      - name: publish package to github repository 
        shell: bash
        run: |
