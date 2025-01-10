@@ -33,7 +33,7 @@ jobs:
      - name: validate-yaml
        shell: bash
        run: |
-          [[ ! -f wadm.yaml]] || wash app validate wadm.yaml
+          [[ ! -f wadm.yaml ]] || wash app validate wadm.yaml
           [[ ! -f local.wadm.yaml ]] || wash app validate local.wadm.yaml
      - name: publish package to github repository 
        shell: bash
@@ -43,7 +43,5 @@ jobs:
 
 
 #TODO: run wash up, wash apply and check output for success messages
-        #
-        #
       
             
