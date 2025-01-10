@@ -33,7 +33,8 @@ jobs:
        shell: bash
        run: |
           pwd
-          tree
+          cd build
+          pwd
      - name: validate-yaml
        shell: bash
        run: |
