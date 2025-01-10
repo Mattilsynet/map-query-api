@@ -16,7 +16,7 @@ jobs:
      - name: checkout
        uses: actions/checkout@v4
      - name: install go
-       uses: actions/setup-go@v2
+       uses: actions/setup-go@v5
      - name: install tinygo
        uses: acifani/setup-tinygo@v2
        with:
