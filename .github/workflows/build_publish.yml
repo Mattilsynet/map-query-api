@@ -52,15 +52,10 @@ jobs:
        shell: bash
        run: |
          ./wash build
-     - name: set publish user
-       shell: bash
-       run: |
-          export WASH_REG_USER: ${{ github.repository_owner }}
-     - name: set publish pass
-       shell: bash
-       run: |
-          export WASH_REG_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
      - name: publish package to github repository 
+       env:
+         WASH_REG_USER: ${{ github.repository_owner }}
+         WASH_REG_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
        shell: bash
        run: |
           ../wash push ghcr.io/${{ github.repository }}:${{ github.ref_name }} ${{ env.built_file_name }} --annotation org.opencontainers.image.source=${{github.server_url}}/${{ github.repository }}
