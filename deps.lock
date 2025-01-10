@@ -10,7 +10,7 @@ sha256 = "41ada083aceb2b4ba92d9bd16d19b6462cc02b10378c9a49135c3447f9138a44"
 sha512 = "aa9c819dfd9e85b19661f6087ffd824c44fc38c8a4bc1005c4e7fd34fe844633c52cae7a0412e9ea90f71826e0660e8a3b5672a0f0303c524e4139643ae675ac"
 
 [provider-jetstream-nats]
-url = "https://github.com/Mattilsynet/map-nats-jetstream/archive/test.tar.gz"
+path = "../../map-providers/map-nats-consumer/wit"
 sha256 = "bd96481fa6ae00646da919c2612c5ca23ff48018aa231f117dbd32ba88f81e71"
 sha512 = "078d984d88c9c7fbc9520bb033c88495cb958cd51c8551b22f8d8b101d9c29849aff13975b9f19dddc9acfd8206ca72af9edef0eef7197a3be96022b125ac8c1"
 
