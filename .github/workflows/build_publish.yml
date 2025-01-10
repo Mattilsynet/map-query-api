@@ -29,17 +29,15 @@ jobs:
        uses: taiki-e/cache-cargo-install-action@v2
        with:
          tool: wash-cli
-     - name: pwd 
-       shell: bash
-       run: |
-          pwd
-          cd build
-          pwd
      - name: validate-yaml
        shell: bash
        run: |
           [[ ! -f wadm.yaml ]] || wash app validate wadm.yaml
           [[ ! -f local.wadm.yaml ]] || wash app validate local.wadm.yaml
+     - name: wash build
+       shell: bash
+       run: |
+         wash build
      - name: publish package to github repository 
        shell: bash
        run: |
