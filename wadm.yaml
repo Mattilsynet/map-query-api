@@ -5,7 +5,7 @@ metadata:
   annotations:
     version: v0.0.1
     description: 'Takes in a command from map-cli, adds an id, then further sends to a interest based workqueue for further handling'
-    wasmcloud.dev/authors: Mattilsynet Plattform team
+    authors: Mattilsynet Plattform team
 spec:
   components:
     - name: map-query-api
