@@ -1,0 +1,62 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: map-query-api
+  annotations:
+    version: v0.0.1
+    description: "Takes in a command from map-cli, adds an id, then further sends to a interest based workqueue for further handling"
+spec:
+  policies:
+    - name: nats-kv
+      type: policy.secret.wasmcloud.dev/v1alpha1
+      properties:
+        backend: nats-kv
+  components:
+    - name: map-query-api
+      type: component
+      properties:
+        image: file://./build/map-query-api_s.wasm
+      traits:
+        - type: spreadscaler
+          properties:
+            instances: 1
+        - type: link
+          properties:
+            target: 
+              name: map-jetstream-nats
+              secrets:
+                - name: nats-credentials
+                  properties:
+                    policy: nats-kv
+                    key: map-nats-jetstream-nats-credentials
+              config:
+                - name: nats-config
+                  properties:
+                    url: "nats://localhost:4222"
+            namespace: mattilsynet
+            package: provider-jetstream-nats
+            interfaces: [jetstream-publish]
+              
+    - name: map-jetstream-nats
+      type: capability
+      properties:
+        image: file://./../map-nats-jetstream/build/map-nats-jetstream.par.gz
+        
+    - name: nats
+      type: capability
+      properties:
+        image: ghcr.io/wasmcloud/messaging-nats:canary
+      traits:
+        - type: spreadscalar
+          properties:
+            instances: 1
+        - type: link
+          properties:
+            target: map-query-api
+            namespace: wasmcloud
+            package: messaging
+            interfaces: [handler]
+            source_config:
+              - name: map-query-api-subject
+                properties:
+                  subscriptions: map.get
