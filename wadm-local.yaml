@@ -15,14 +15,14 @@ spec:
     - name: map-query-api
       type: component
       properties:
-        image: file://./build/map-query-api_s.wasm
+        image: ghcr.io/mattilsynet/map-query-api:v0.0.4-pre-1
       traits:
         - type: spreadscaler
           properties:
             instances: 1
         - type: link
           properties:
-            target: 
+            target:
               name: map-jetstream-nats
               secrets:
                 - name: nats-credentials
@@ -39,7 +39,7 @@ spec:
         - type: link
           properties:
             target:
-              name: nats-core 
+              name: nats-core
               secrets:
                 - name: client_jwt
                   properties:
@@ -48,12 +48,12 @@ spec:
             namespace: wasmcloud
             package: messaging
             interfaces: [consumer]
-              
+
     - name: map-jetstream-nats
       type: capability
       properties:
         image: file://./../map-nats-jetstream/build/map-nats-jetstream.par.gz
-        
+
     - name: nats-core
       type: capability
       properties:

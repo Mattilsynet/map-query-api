@@ -28,9 +28,9 @@ spec:
                 - name: nats-credentials
                   properties:
                     policy: nats-kv
-                    key: map-nats-jetstream-nats-credentials
+                    key: map-query-api-nats-credentials
               config:
-                - name: nats-config
+                - name: nats-jetstream-config
                   properties:
                     url: "nats://connect.nats.mattilsynet.io"
             namespace: mattilsynet
@@ -44,20 +44,22 @@ spec:
                 - name: client_jwt
                   properties:
                     policy: nats-kv
-                    key: map-nats-jetstream-nats-credentials
+                    key: map-query-api-nats-jwt
+                - name: client_seed
+                  properties:
+                    policy: nats-kv
+                    key: map-query-api-nats-seed
               config:
-                - name: nats-config
+                - name: nats-core-config
                   properties:
                     client_uris: "nats://connect.nats.mattilsynet.io"
             namespace: wasmcloud
             package: messaging
             interfaces: [consumer]
-
     - name: map-jetstream-nats
       type: capability
       properties:
-        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-4
-
+        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-3
     - name: nats-core
       type: capability
       properties:
@@ -74,7 +76,7 @@ spec:
             interfaces: [handler]
             source:
               config:
-                - name: map-query-api-subject
+                - name: nats-core-subject
                   properties:
                     client_uris: "nats://connect.nats.mattilsynet.io"
                     subscriptions: map.get
@@ -82,4 +84,4 @@ spec:
                 - name: client_jwt
                   properties:
                     policy: nats-kv
-                    key: map-nats-jetstream-nats-credentials
+                    key: map-query-api-nats-credentials
