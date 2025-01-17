@@ -15,8 +15,7 @@ spec:
     - name: map-query-api
       type: component
       properties:
-        #TODO: put in ghcr image uri when published
-        image: file://./build/map-query-api_s.wasm
+        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-1
       traits:
         - type: spreadscaler
           properties:
