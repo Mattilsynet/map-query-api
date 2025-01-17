@@ -40,7 +40,7 @@ func MapQueryApi(msg *nats.Msg) *nats.Msg {
 	qry := &query.Query{}
 	err := qry.UnmarshalVT(msg.Data)
 	if err != nil {
-		logger.Error("error unmarshalling msg: ", err)
+		logger.Error("error unmarshalling msg: ", "err", err)
 		replyMsg.Data = []byte(err.Error())
 		return replyMsg
 	}
@@ -51,12 +51,16 @@ func MapQueryApi(msg *nats.Msg) *nats.Msg {
 	logger.Info("MapQueryApi: subj:", "subj", subj.ToQuery())
 	bytes, err := qry.MarshalVT()
 	if err != nil {
-		logger.Error("error marshalling msg: ", err)
+		logger.Error("error marshalling msg: ", "err", err)
 		replyMsg.Data = []byte(err.Error())
 		return replyMsg
 	}
 	replyMsg.Data = bytes
-	js.Publish(subj.ToQuery(), bytes)
+	err = js.Publish(subj.ToQuery(), bytes)
+	if err != nil {
+		logger.Error("error publishing msg: ", "err", err)
+		replyMsg.Data = []byte(err.Error())
+	}
 	return replyMsg
 }
 

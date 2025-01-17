@@ -15,6 +15,7 @@ spec:
     - name: map-query-api
       type: component
       properties:
+        #TODO: put in ghcr image uri when published
         image: file://./build/map-query-api_s.wasm
       traits:
         - type: spreadscaler
@@ -22,7 +23,7 @@ spec:
             instances: 1
         - type: link
           properties:
-            target: 
+            target:
               name: map-jetstream-nats
               secrets:
                 - name: nats-credentials
@@ -32,28 +33,32 @@ spec:
               config:
                 - name: nats-config
                   properties:
-                    url: "nats://localhost:4222"
+                    url: "nats://connect.nats.mattilsynet.io"
             namespace: mattilsynet
             package: provider-jetstream-nats
             interfaces: [jetstream-publish]
         - type: link
           properties:
             target:
-              name: nats-core 
+              name: nats-core
               secrets:
                 - name: client_jwt
                   properties:
                     policy: nats-kv
                     key: map-nats-jetstream-nats-credentials
+              config:
+                - name: nats-config
+                  properties:
+                    client_uris: "nats://connect.nats.mattilsynet.io"
             namespace: wasmcloud
             package: messaging
             interfaces: [consumer]
-              
+
     - name: map-jetstream-nats
       type: capability
       properties:
-        image: file://./../map-nats-jetstream/build/map-nats-jetstream.par.gz
-        
+        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-4
+
     - name: nats-core
       type: capability
       properties:
@@ -72,8 +77,9 @@ spec:
               config:
                 - name: map-query-api-subject
                   properties:
+                    client_uris: "nats://connect.nats.mattilsynet.io"
                     subscriptions: map.get
-              secrets:
+              secret:
                 - name: client_jwt
                   properties:
                     policy: nats-kv
