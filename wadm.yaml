@@ -36,26 +36,6 @@ spec:
             namespace: mattilsynet
             package: provider-jetstream-nats
             interfaces: [jetstream-publish]
-        - type: link
-          properties:
-            target:
-              name: nats-core
-              secrets:
-                - name: client_jwt
-                  properties:
-                    policy: nats-kv
-                    key: map-query-api-nats-jwt
-                - name: client_seed
-                  properties:
-                    policy: nats-kv
-                    key: map-query-api-nats-seed
-              config:
-                - name: nats-core-config
-                  properties:
-                    client_uris: "nats://connect.nats.mattilsynet.io"
-            namespace: wasmcloud
-            package: messaging
-            interfaces: [consumer]
     - name: map-jetstream-nats
       type: capability
       properties:
@@ -80,8 +60,12 @@ spec:
                   properties:
                     client_uris: "nats://connect.nats.mattilsynet.io"
                     subscriptions: map.get
-              secret:
+              secrets:
                 - name: client_jwt
                   properties:
                     policy: nats-kv
-                    key: map-query-api-nats-credentials
+                    key: map-query-api-nats-jwt
+                - name: client_seed
+                  properties:
+                    policy: nats-kv
+                    key: map-query-api-nats-seed
