@@ -45,7 +45,7 @@ func (js *JetStreamContext) PublishMsg(msg *Msg) error {
 		Subject: msg.Subject,
 	}
 	result := jetstreampublish.Publish(jpMsg)
-	if !result.IsOK() {
+	if result.IsErr() {
 		return errors.New(*result.Err())
 	}
 	return nil
