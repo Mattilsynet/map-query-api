@@ -7,6 +7,10 @@ build/
 gen/
 wkg.lock
 wasmcloud.lock
+get_script.sh
+script.sh
+wadm.yaml
+wadm-local.yaml
 
 # frontend
 public/

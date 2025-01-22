@@ -15,7 +15,7 @@ spec:
     - name: map-query-api
       type: component
       properties:
-        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-1
+        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-3
       traits:
         - type: spreadscaler
           properties:
@@ -36,36 +36,36 @@ spec:
             namespace: mattilsynet
             package: provider-jetstream-nats
             interfaces: [jetstream-publish]
+        - type: link
+          properties:
+            target:
+              name: nats-core
+            namespace: wasmcloud
+            package: messaging
+            interfaces: [consumer]
     - name: map-jetstream-nats
       type: capability
       properties:
-        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-3
+        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-17
     - name: nats-core
       type: capability
       properties:
         image: ghcr.io/wasmcloud/messaging-nats:canary
+        config:
+          - name: nats-core-subject-root
+            properties:
+              cluster_uris: "nats://connect.nats.mattilsynet.io"
+              subscriptions: map.get
+              client_jwt: ""
+              client_seed: ""
       traits:
         - type: spreadscalar
           properties:
             instances: 1
         - type: link
           properties:
-            target: map-query-api
+            target:
+              name: map-query-api
             namespace: wasmcloud
             package: messaging
             interfaces: [handler]
-            source:
-              config:
-                - name: nats-core-subject
-                  properties:
-                    client_uris: "nats://connect.nats.mattilsynet.io"
-                    subscriptions: map.get
-              secrets:
-                - name: client_jwt
-                  properties:
-                    policy: nats-kv
-                    key: map-query-api-nats-jwt
-                - name: client_seed
-                  properties:
-                    policy: nats-kv
-                    key: map-query-api-nats-seed
