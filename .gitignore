@@ -9,8 +9,7 @@ wkg.lock
 wasmcloud.lock
 get_script.sh
 script.sh
-wadm.yaml
-wadm-local.yaml
+_wadm.yaml
 
 # frontend
 public/
