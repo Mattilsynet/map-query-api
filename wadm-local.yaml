@@ -6,16 +6,11 @@ metadata:
     version: v0.0.1
     description: "Takes in a command from map-cli, adds an id, then further sends to a interest based workqueue for further handling"
 spec:
-  policies:
-    - name: nats-kv
-      type: policy.secret.wasmcloud.dev/v1alpha1
-      properties:
-        backend: nats-kv
   components:
     - name: map-query-api
       type: component
       properties:
-        image: ghcr.io/mattilsynet/map-query-api:v0.0.4-pre-1
+        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-3
       traits:
         - type: spreadscaler
           properties:
@@ -24,11 +19,6 @@ spec:
           properties:
             target:
               name: map-jetstream-nats
-              secrets:
-                - name: nats-credentials
-                  properties:
-                    policy: nats-kv
-                    key: map-nats-jetstream-nats-credentials
               config:
                 - name: nats-config
                   properties:
@@ -38,13 +28,7 @@ spec:
             interfaces: [jetstream-publish]
         - type: link
           properties:
-            target:
-              name: nats-core
-              secrets:
-                - name: client_jwt
-                  properties:
-                    policy: nats-kv
-                    key: map-nats-jetstream-nats-credentials
+            target: nats-core
             namespace: wasmcloud
             package: messaging
             interfaces: [consumer]
@@ -52,7 +36,8 @@ spec:
     - name: map-jetstream-nats
       type: capability
       properties:
-        image: file://./../map-nats-jetstream/build/map-nats-jetstream.par.gz
+        #        image: file://./../map-nats-jetstream/build/map-jetstream-nats.par.gz
+        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-7
 
     - name: nats-core
       type: capability
@@ -65,16 +50,11 @@ spec:
         - type: link
           properties:
             target: map-query-api
-            namespace: wasmcloud
-            package: messaging
+            namespace: mattilsynet
+            package: provider-jetstream-nats
             interfaces: [handler]
             source:
               config:
                 - name: map-query-api-subject
                   properties:
                     subscriptions: map.get
-              secrets:
-                - name: client_jwt
-                  properties:
-                    policy: nats-kv
-                    key: map-nats-jetstream-nats-credentials

@@ -15,7 +15,7 @@ spec:
     - name: map-query-api
       type: component
       properties:
-        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-1
+        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-3
       traits:
         - type: spreadscaler
           properties:
@@ -51,15 +51,22 @@ spec:
     - name: map-jetstream-nats
       type: capability
       properties:
-        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-3
+        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-17
     - name: nats-core
       type: capability
       properties:
         image: ghcr.io/wasmcloud/messaging-nats:canary
+        config:
+          - name: nats-core-subject-root
+            properties:
+              cluster_uris: "nats://connect.nats.mattilsynet.io"
+              subscriptions: map.get
+              client_jwt: ""
+              client_seed: ""
       traits:
         - type: link
           properties:
-            target: 
+            target:
               name: map-query-api
             namespace: wasmcloud
             package: messaging
