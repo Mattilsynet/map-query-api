@@ -38,8 +38,13 @@ spec:
             interfaces: [jetstream-publish]
         - type: link
           properties:
-            target:
-              name: nats-core
+            target: nats-core
+            target_config:
+                - name: nats-core-config
+                  properties:
+                    cluster_uris: "nats://connect.nats.mattilsynet.io"
+                    client_seed: ""
+                    client_jwt: ""
             namespace: wasmcloud
             package: messaging
             interfaces: [consumer]
@@ -59,9 +64,6 @@ spec:
               client_jwt: ""
               client_seed: ""
       traits:
-        - type: spreadscalar
-          properties:
-            instances: 1
         - type: link
           properties:
             target:
@@ -69,3 +71,11 @@ spec:
             namespace: wasmcloud
             package: messaging
             interfaces: [handler]
+            source:
+              config:
+                - name: nats-core-subject-config
+                  properties:
+                    cluster_uris: "nats://connect.nats.mattilsynet.io"
+                    subscriptions: map.get
+                    client_seed: ""
+                    client_jwt: ""

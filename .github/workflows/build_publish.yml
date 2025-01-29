@@ -83,5 +83,5 @@ jobs:
          WASH_REG_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
        shell: bash
        run: |
-          wash push ghcr.io/${{ github.repository }}:${{ github.ref_name }} ${{ env.built_file_name }} --annotation org.opencontainers.image.source=${{github.server_url}}/${{ github.repository }}
+          wash push ghcr.io/${{ github.repository }}:${{ github.ref_name }} ${{ env.wasm-bin }} --annotation org.opencontainers.image.source=${{github.server_url}}/${{ github.repository }}
        working-directory: build
