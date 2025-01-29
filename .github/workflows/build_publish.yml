@@ -8,7 +8,9 @@ jobs:
   wash-build:
     runs-on: ubuntu-latest
     env:
-      built_file_name: map-query-api_s.wasm
+      CARGO_TERM_COLOR: always
+      test-deploy: local.wadm.yaml
+      wasm-bin: map-query-api_s.wasm
     permissions:
      contents: 'write'
      packages: 'write'
@@ -17,6 +19,8 @@ jobs:
        uses: actions/checkout@v4
      - name: install go
        uses: actions/setup-go@v5
+       with:
+          go-version: '1.22.0'
      - name: install tinygo
        uses: acifani/setup-tinygo@v2
        with:
@@ -25,23 +29,24 @@ jobs:
      - name: install wash tools
        uses: taiki-e/install-action@v2
        with:
-         tool: wit-bindgen-cli, wasm-tools, wit-deps-cli
+         tool: wit-bindgen-cli, wasm-tools, wit-deps-cli, wash-cli
      - name: install wit-bindgen-go
        shell: bash
        run: | 
-          go install github.com/bytecodealliance/wasm-tools-go/cmd/wit-bindgen-go
-     - name: install wash-cli cached
-       uses: taiki-e/cache-cargo-install-action@v2
-       with:
-         tool: wash-cli
-     - name: wit-deps
+          go mod download github.com/bytecodealliance/wasm-tools-go
+          go get go.bytecodealliance.org/cmd/wit-bindgen-go
+     - name: generate wit dependencies from world
        shell: bash
        run: |
           wit-deps
-     - name: generate go files
+     - name: generate go files by wit dependencies and world
        shell: bash
        run: |
-          wit-bindgen-go generate --world map-query-api --out gen ./wit 
+          go generate ./...
+     - name: fix go dependencies
+       shell: bash
+       run: |
+          go mod tidy
      - name: validate-yaml
        shell: bash
        run: |
@@ -51,6 +56,27 @@ jobs:
        shell: bash
        run: |
          wash build
+     - name: test component load
+       shell: bash
+       run: |
+          set -xe
+          wash up &
+          WASH_PID=$!
+          sleep 10;
+          wash app deploy ${{ env.test-deploy }};
+          TRIES=0
+          while [[ $(wash get inventory --output=json | jq '.inventories[0].components | length') -eq 0 ]] ; do
+            if [[ $TRIES -gt 10 ]]; then
+              echo "❌ failed to find component in inventory output after deploying example manifest";
+              exit -1;
+            fi
+            TRIES=$((TRIES+1));
+            sleep 1;
+          done;
+          echo "✅ successfully started at least one component";
+          wash app delete ${{ env.test-deploy }};
+          kill $WASH_PID;
+          exit 0;
      - name: publish package to github repository 
        env:
          WASH_REG_USER: ${{ github.repository_owner }}
@@ -59,8 +85,3 @@ jobs:
        run: |
           wash push ghcr.io/${{ github.repository }}:${{ github.ref_name }} ${{ env.built_file_name }} --annotation org.opencontainers.image.source=${{github.server_url}}/${{ github.repository }}
        working-directory: build
-
-
-#TODO: run wash up, wash apply and check output for success messages
-      
-            

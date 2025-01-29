@@ -4,13 +4,13 @@ metadata:
   name: map-query-api
   annotations:
     version: v0.0.1
-    description: "Takes in a command from map-cli, adds an id, then further sends to a interest based workqueue for further handling"
+    description: "Takes in a query from map-cli, adds an id, then further sends to a interest based workqueue for further handling"
 spec:
   components:
     - name: map-query-api
       type: component
       properties:
-        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-3
+        image: file://./build/map-query-api_s.wasm
       traits:
         - type: spreadscaler
           properties:
@@ -36,7 +36,6 @@ spec:
     - name: map-jetstream-nats
       type: capability
       properties:
-        #        image: file://./../map-nats-jetstream/build/map-jetstream-nats.par.gz
         image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-7
 
     - name: nats-core

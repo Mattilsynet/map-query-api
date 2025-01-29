@@ -1,4 +1,4 @@
-//go:generate go run github.com/bytecodealliance/wasm-tools-go/cmd/wit-bindgen-go generate --world map-command-api --out gen ./wit
+//go:generate go run github.com/bytecodealliance/wasm-tools-go/cmd/wit-bindgen-go generate --world map-query-api --out gen ./wit
 package main
 
 import (
