@@ -15,7 +15,7 @@ spec:
     - name: map-query-api
       type: component
       properties:
-        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-3
+        image: ghcr.io/mattilsynet/map-query-api:v0.0.6.1
       traits:
         - type: spreadscaler
           properties:
@@ -40,11 +40,11 @@ spec:
           properties:
             target: nats-core
             target_config:
-                - name: nats-core-config
-                  properties:
-                    cluster_uris: "nats://connect.nats.mattilsynet.io"
-                    client_seed: ""
-                    client_jwt: ""
+              - name: nats-core-config
+                properties:
+                  cluster_uris: "nats://connect.nats.mattilsynet.io"
+                  client_seed: ""
+                  client_jwt: ""
             namespace: wasmcloud
             package: messaging
             interfaces: [consumer]
