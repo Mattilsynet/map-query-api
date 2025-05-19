@@ -35,10 +35,6 @@ jobs:
         run: |
           go mod download github.com/bytecodealliance/wasm-tools-go
           go get go.bytecodealliance.org/cmd/wit-bindgen-go
-      - name: generate wit dependencies from world
-        shell: bash
-        run: |
-          wit-deps
       - name: generate go files by wit dependencies and world
         shell: bash
         run: |
