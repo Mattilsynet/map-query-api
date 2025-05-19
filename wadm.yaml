@@ -34,7 +34,7 @@ spec:
                   properties:
                     url: "nats://connect.nats.mattilsynet.io"
             namespace: mattilsynet
-            package: provider-jetstream-nats
+            package: map-nats-jetstrea
             interfaces: [jetstream-publish]
         - type: link
           properties:
@@ -51,7 +51,7 @@ spec:
     - name: map-jetstream-nats
       type: capability
       properties:
-        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-17
+        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1.28
     - name: nats-core
       type: capability
       properties:

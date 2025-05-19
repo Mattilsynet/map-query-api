@@ -10,7 +10,7 @@ spec:
     - name: map-query-api
       type: component
       properties:
-        image: ghcr.io/mattilsynet/map-query-api:v0.0.5-pre-3
+        image: ghcr.io/mattilsynet/map-query-api:v0.0.5.4
       traits:
         - type: spreadscaler
           properties:
@@ -24,7 +24,7 @@ spec:
                   properties:
                     url: "nats://localhost:4222"
             namespace: mattilsynet
-            package: provider-jetstream-nats
+            package: map-nats-jetstream
             interfaces: [jetstream-publish]
         - type: link
           properties:
@@ -37,7 +37,7 @@ spec:
       type: capability
       properties:
         #        image: file://./../map-nats-jetstream/build/map-jetstream-nats.par.gz
-        image: ghcr.io/mattilsynet/map-nats-jetstream:v0.0.1-pre-7
+        image: ghcr.io/Mattilsynet/map-nats-jetstream:v0.0.1.28
 
     - name: nats-core
       type: capability
