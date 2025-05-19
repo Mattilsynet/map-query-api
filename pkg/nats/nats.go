@@ -3,8 +3,8 @@ package nats
 import (
 	"errors"
 
-	jetstreampublish "github.com/Mattilsynet/map-query-api/gen/mattilsynet/provider-jetstream-nats/jetstream-publish"
-	jetstream_types "github.com/Mattilsynet/map-query-api/gen/mattilsynet/provider-jetstream-nats/types"
+	jetstreampublish "github.com/Mattilsynet/map-query-api/gen/mattilsynet/map-nats-jetstream/jetstream-publish"
+	jetstream_types "github.com/Mattilsynet/map-query-api/gen/mattilsynet/map-nats-jetstream/types"
 	"github.com/Mattilsynet/map-query-api/gen/wasmcloud/messaging/consumer"
 	"github.com/Mattilsynet/map-query-api/gen/wasmcloud/messaging/handler"
 	"github.com/Mattilsynet/map-query-api/gen/wasmcloud/messaging/types"
