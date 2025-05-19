@@ -4,7 +4,7 @@ metadata:
   name: map-query-api
   annotations:
     version: v0.0.1
-    description: "Takes in a command from map-cli, adds an id, then further sends to a interest based workqueue for further handling"
+    description: "Takes in a query from map-cli, adds an id, then further sends to a interest based workqueue for further handling"
 spec:
   policies:
     - name: nats-kv
