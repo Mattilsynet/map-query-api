@@ -60,15 +60,6 @@ jobs:
         run: |
           go mod download github.com/bytecodealliance/wasm-tools-go
           go get go.bytecodealliance.org/cmd/wit-bindgen-go
-      - name: wit-bindgen
-        shell: bash
-        run: |
-          mkdir gen
-          wit-bindgen-go generate --world map-query-api --out gen ./wit
-      - name: fix go dependencies
-        shell: bash
-        run: |
-          go mod tidy
       - name: validate-yaml
         shell: bash
         run: |
