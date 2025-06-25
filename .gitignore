@@ -21,7 +21,6 @@ _examples/
 .envrc
 
 #go files and folders
-go.sum
 vendor/
 
 #terraform oriented files and folders
