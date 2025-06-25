@@ -51,7 +51,7 @@ jobs:
           auth = { username = "${WASH_REG_USER}", password = "${WASH_REG_PASSWORD}"}
           EOF
           echo "WASH_PACKAGE_CONFIG_FILE=$(realpath package_config.toml)" >> $GITHUB_ENV
-      - name: download dependencies
+      - name: fix go dependencies
         shell: bash
         run: |
           go mod tidy
@@ -60,6 +60,10 @@ jobs:
         run: |
           [[ ! -f wadm.yaml ]] || wash app validate wadm.yaml
           [[ ! -f local.wadm.yaml ]] || wash app validate local.wadm.yaml
+      - name: wash wit fetch
+        shell: bash
+        run: |
+          wash wit fetch
       - name: wash build
         shell: bash
         run: |
