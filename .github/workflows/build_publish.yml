@@ -24,13 +24,13 @@ jobs:
       - name: install tinygo
         uses: acifani/setup-tinygo@v2
         with:
-          tinygo-version: "0.33.0"
+          tinygo-version: "0.36.0"
           install-binaryen: "false"
       - name: install wash tools
         uses: taiki-e/install-action@v2
         with:
-          tool: wit-bindgen-cli, wasm-tools@1.225.0, wit-deps-cli, wash-cli
-      - name: install wit-bindgen-go
+          tool: wasm-tools@1.225.0, wash-cli
+      - name: install wit-bindgen-wrpc
         shell: bash
         run: |
           go mod download github.com/bytecodealliance/wasm-tools-go
@@ -53,6 +53,7 @@ jobs:
         shell: bash
         run: |
           wash wit fetch
+
       - name: validate-yaml
         shell: bash
         run: |
